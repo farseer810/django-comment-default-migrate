@@ -47,7 +47,8 @@ class CommentDefaultMigration(BaseCommentDefaultMigration):
         if table_comment:
             results.append(
                 (
-                    self.sql_alter_table_comment % {"table": self.db_table, "comment": "%s"},
+                    self.sql_alter_table_comment % {
+                        "table": self.db_table, "comment": "%s"},
                     [get_table_comment(self.model)],
                 ),
             )

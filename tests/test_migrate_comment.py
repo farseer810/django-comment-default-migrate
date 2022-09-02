@@ -58,7 +58,8 @@ class TestDjangoCommentDefaultMigration(TestCase):
                 ["{'A', 'B'}"],
             ),
             (
-                sql.SQL("COMMENT ON TABLE {} is %s;").format(sql.Identifier("user")),
+                sql.SQL("COMMENT ON TABLE {} is %s;").format(
+                    sql.Identifier("user")),
                 ["comment model"],
             ),
         ]
@@ -137,14 +138,16 @@ class TestDjangoCommentDefaultMigration(TestCase):
         migration_class = get_migration_class_from_engine("new-engine")
         self.assertEqual(
             migration_class,
-            import_string("django_comment_default_migrate.backends.mssql.CommentDefaultMigration"),
+            import_string(
+                "django_comment_default_migrate.backends.mssql.CommentDefaultMigration"),
         )
 
 
 class TestCommand(TestCase):
     def test_migrate_command_with_app_label(self):
         out = io.StringIO()
-        management.call_command("migratecommentdefault", app_label="tests", stdout=out)
+        management.call_command("migratecommentdefault",
+                                app_label="tests", stdout=out)
         self.assertIn(
             "migrate app tests successful",
             out.getvalue(),
@@ -162,7 +165,8 @@ class TestCommandWithAnotherCustomUser(TransactionTestCase):
         management.call_command(
             "migrate", app_label="contenttypes", migration_name="zero"
         )
-        management.call_command("migrate", app_label="auth", migration_name="zero")
+        management.call_command(
+            "migrate", app_label="auth", migration_name="zero")
         with self.settings(AUTH_USER_MODEL="tests.AnotherUserModel"):
             out = io.StringIO()
             # migrate auth and related again in customize auth_user_model context
@@ -216,7 +220,8 @@ class TestUtil(TestCase):
             MigrationWithNoOperation("test_migration_01", "tests"),
             ModelMigration("test_migration_02", "tests"),
             migrations.RunPython(lambda x: x),
-            migrations.AddIndex("author", models.Index(name="aa", fields=["id"])),
+            migrations.AddIndex("author", models.Index(
+                name="aa", fields=["id"])),
         ]
 
         app_models = get_migrations_app_models(test_migrations, new_apps)

@@ -28,7 +28,8 @@ class Command(BaseCommand):
             app_configs = self.load_app_configs(using)
 
         for app_config in app_configs:
-            migrate_app_models_comment_to_database(app_config.get_models(), using)
+            migrate_app_models_comment_to_database(
+                app_config.get_models(), using)
             self.stdout.write(self.style.SUCCESS(
                 f"migrate app {app_config.label} successful"))
 

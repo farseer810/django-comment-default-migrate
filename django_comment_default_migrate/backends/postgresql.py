@@ -17,7 +17,8 @@ class CommentDefaultMigration(BaseCommentDefaultMigration):
         if table_comment:
             results.append(
                 (
-                    self.table_comment_sql.format(sql.Identifier(self.db_table)),
+                    self.table_comment_sql.format(
+                        sql.Identifier(self.db_table)),
                     [table_comment],
                 )
             )

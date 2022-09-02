@@ -10,7 +10,8 @@ from django_comment_default_migrate.utils import get_migrations_app_models
 def handle_post_migrate(app_config, using=DEFAULT_DB_ALIAS, **kwargs):
     from django.contrib.auth.models import User
 
-    migrations = (migration for migration, rollback in kwargs.get('plan', []) if not rollback)
+    migrations = (migration for migration,
+                  rollback in kwargs.get('plan', []) if not rollback)
     app_models = get_migrations_app_models(migrations, apps, using)
     # another user model is specified instead.
     if get_user_model() != User:

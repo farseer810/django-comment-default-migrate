@@ -34,5 +34,6 @@ def migrate_app_models_comment_to_database(app_models, using):
         )
     else:
         for model in app_models:
-            executor = migration_class(connection=connections[using], model=model)
+            executor = migration_class(
+                connection=connections[using], model=model)
             executor.execute()
